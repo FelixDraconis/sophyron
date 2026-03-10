@@ -5,18 +5,30 @@ This repo is a simple static website intended to be hosted on **GitHub Pages**.
 ## Quick start
 
 - Edit `index.html` to update:
-  - Latest soundtrack title/description
-  - Bandcamp + YouTube links
+  - Header/hero wording if you want
   - Social link tiles (Bandcamp/YouTube/email/etc.)
 - Edit `styles.css` if you want to tweak layout/colors.
+- Edit `data/releases.json` to manage your soundtrack list (the site auto-renders from this file).
 
 ## Adding cover art
 
-Place your latest cover image at:
+Place your cover images in:
 
-- `assets/covers/latest.svg` (or replace it with a real `latest.png` and update `index.html`)
+- `assets/covers/`
 
-Then it will automatically show up in both the featured section and the first catalog card.
+Then set each release's `coverImage` path in `data/releases.json` (example already included).
+
+## Adding a new release
+
+1. Add the cover image to `assets/covers/` (use simple filenames like `my-album-cover.png`).
+2. Append a new object to `data/releases.json` with:
+   - `title`
+   - `releaseDate` (ISO format like `2026-03-01`)
+   - `coverImage` (path to your cover file)
+   - `bandcampUrl`
+   - `youtubeUrl`
+
+The homepage automatically sorts by `releaseDate`, so the newest becomes **Latest**.
 
 ## GitHub Pages publishing (user site)
 
