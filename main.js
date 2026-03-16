@@ -27,6 +27,25 @@ function formatYear(isoDate) {
   return String(d.getFullYear());
 }
 
+function formatApproxMinutes(durationStr) {
+  if (!durationStr) return "";
+  const parts = durationStr.split(":").map((p) => parseInt(p, 10));
+  if (parts.some((n) => Number.isNaN(n))) return "";
+  let seconds = 0;
+  if (parts.length === 3) {
+    const [h, m, s] = parts;
+    seconds = h * 3600 + m * 60 + s;
+  } else if (parts.length === 2) {
+    const [m, s] = parts;
+    seconds = m * 60 + s;
+  } else if (parts.length === 1) {
+    seconds = parts[0] * 60;
+  }
+  const minutes = Math.round(seconds / 60);
+  if (!minutes) return "";
+  return `~${minutes} min`;
+}
+
 function sortNewestFirst(a, b) {
   const da = new Date(a.releaseDate).getTime();
   const db = new Date(b.releaseDate).getTime();
@@ -52,12 +71,8 @@ function renderFeatured(release) {
           el("div", { class: "meta-value", text: formatMonthYear(release.releaseDate) }),
         ]),
         el("div", { class: "meta" }, [
-          el("div", { class: "meta-label", text: "Format" }),
-          el("div", { class: "meta-value", text: release.format || "Digital" }),
-        ]),
-        el("div", { class: "meta" }, [
-          el("div", { class: "meta-label", text: "Links" }),
-          el("div", { class: "meta-value", text: "Bandcamp • YouTube" }),
+          el("div", { class: "meta-label", text: "Length" }),
+          el("div", { class: "meta-value", text: formatApproxMinutes(release.duration) }),
         ]),
       ]),
       el("div", { class: "cta-row" }, [
@@ -79,6 +94,10 @@ function renderFeatured(release) {
 }
 
 function renderCard(release) {
+  const year = formatYear(release.releaseDate);
+  const length = formatApproxMinutes(release.duration);
+  const subtitle = length ? `${year} • ${length}` : year;
+
   return el("article", { class: "card" }, [
     el(
       "a",
@@ -87,7 +106,7 @@ function renderCard(release) {
     ),
     el("div", { class: "card-body" }, [
       el("div", { class: "card-title", text: release.title }),
-      el("div", { class: "card-sub muted", text: `${formatYear(release.releaseDate)} • Bandcamp` }),
+      el("div", { class: "card-sub muted", text: subtitle }),
       el("div", { class: "card-actions" }, [
         el("a", { class: "chip", href: release.bandcampUrl, target: "_blank", rel: "noreferrer" }, "Bandcamp"),
         el("a", { class: "chip", href: release.youtubeUrl, target: "_blank", rel: "noreferrer" }, "YouTube"),
