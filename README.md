@@ -25,6 +25,7 @@ Then set each release's `coverImage` path in `data/releases.json` (example alrea
    - `title`
    - `releaseDate` (ISO format like `2026-03-01`)
    - `coverImage` (path to your cover file)
+   - `duration` (optional, `HH:MM:SS` or `MM:SS` — shown as `~N min`)
    - `bandcampUrl`
    - `youtubeUrl`
 
