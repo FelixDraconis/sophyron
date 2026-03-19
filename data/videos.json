@@ -3,9 +3,10 @@
     "id": "luna",
     "title": "Luna",
     "publishDate": "2026-02-19",
-    "type": "Cartoon (experimental)",
+    "type": "Cartoon",
     "blurb": "An experimental cartoon short.",
-    "youtubeUrl": "https://youtu.be/uwfk3kr0nQk"
+    "youtubeUrl": "https://youtu.be/uwfk3kr0nQk",
+    "thumbnailImage": "assets/videos/luna.png"
   }
 ]
 
