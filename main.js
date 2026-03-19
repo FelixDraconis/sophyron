@@ -52,7 +52,7 @@ function sortNewestFirst(a, b) {
   return (Number.isNaN(db) ? 0 : db) - (Number.isNaN(da) ? 0 : da);
 }
 
-function renderFeatured(release) {
+function renderFeaturedRelease(release) {
   return el("article", { class: "featured" }, [
     el("div", { class: "cover" }, [
       el("img", {
@@ -93,7 +93,7 @@ function renderFeatured(release) {
   ]);
 }
 
-function renderCard(release) {
+function renderReleaseCard(release) {
   const year = formatYear(release.releaseDate);
   const length = formatApproxMinutes(release.duration);
   const subtitle = length ? `${year} • ${length}` : year;
@@ -115,33 +115,115 @@ function renderCard(release) {
   ]);
 }
 
+function sortNewestVideoFirst(a, b) {
+  const da = new Date(a.publishDate).getTime();
+  const db = new Date(b.publishDate).getTime();
+  return (Number.isNaN(db) ? 0 : db) - (Number.isNaN(da) ? 0 : da);
+}
+
+function renderFeaturedVideo(video) {
+  return el("article", { class: "featured" }, [
+    el("div", { class: "cover" }, [
+      el("img", {
+        src: video.thumbnailImage,
+        alt: `Thumbnail for ${video.title}`,
+        loading: "lazy",
+      }),
+    ]),
+    el("div", { class: "featured-body" }, [
+      el("div", { class: "kicker", text: "New video" }),
+      el("h3", { class: "featured-title", text: video.title }),
+      el("p", { class: "featured-blurb", text: video.blurb || "" }),
+      el("div", { class: "meta-row" }, [
+        el("div", { class: "meta" }, [
+          el("div", { class: "meta-label", text: "Published" }),
+          el("div", { class: "meta-value", text: formatMonthYear(video.publishDate) }),
+        ]),
+        el("div", { class: "meta" }, [
+          el("div", { class: "meta-label", text: "Type" }),
+          el("div", { class: "meta-value", text: video.type || "Video" }),
+        ]),
+      ]),
+      el("div", { class: "cta-row" }, [
+        el(
+          "a",
+          { class: "btn btn-primary", href: video.youtubeUrl, target: "_blank", rel: "noreferrer" },
+          "Watch on YouTube"
+        ),
+      ]),
+    ]),
+  ]);
+}
+
+function renderVideoCard(video) {
+  const year = formatYear(video.publishDate);
+  const subtitle = video.type ? `${year} • ${video.type}` : year;
+
+  return el("article", { class: "card" }, [
+    el(
+      "a",
+      { class: "card-media", href: video.youtubeUrl, target: "_blank", rel: "noreferrer" },
+      el("img", { src: video.thumbnailImage, alt: `Thumbnail for ${video.title}`, loading: "lazy" })
+    ),
+    el("div", { class: "card-body" }, [
+      el("div", { class: "card-title", text: video.title }),
+      el("div", { class: "card-sub muted", text: subtitle }),
+      el("div", { class: "card-actions" }, [
+        el("a", { class: "chip", href: video.youtubeUrl, target: "_blank", rel: "noreferrer" }, "YouTube"),
+      ]),
+    ]),
+  ]);
+}
+
+async function loadJson(path) {
+  const res = await fetch(path, { cache: "no-cache" });
+  if (!res.ok) throw new Error(`Failed to load ${path} (${res.status})`);
+  return await res.json();
+}
+
 async function init() {
-  document.getElementById("year").textContent = new Date().getFullYear();
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  const featuredMount = document.getElementById("featured-mount");
-  const catalogMount = document.getElementById("catalog-mount");
+  const featuredReleaseMount = document.getElementById("featured-release-mount");
+  const releaseCatalogMount = document.getElementById("release-catalog-mount");
+  const featuredVideoMount = document.getElementById("featured-video-mount");
+  const videoCatalogMount = document.getElementById("video-catalog-mount");
 
-  try {
-    const res = await fetch("data/releases.json", { cache: "no-cache" });
-    if (!res.ok) throw new Error(`Failed to load releases.json (${res.status})`);
-    const releases = await res.json();
-    if (!Array.isArray(releases) || releases.length === 0) throw new Error("No releases found.");
+  if (featuredReleaseMount && releaseCatalogMount) {
+    try {
+      const releases = await loadJson("data/releases.json");
+      if (!Array.isArray(releases) || releases.length === 0) throw new Error("No releases found.");
+      releases.sort(sortNewestFirst);
+      featuredReleaseMount.replaceChildren(renderFeaturedRelease(releases[0]));
+      releaseCatalogMount.replaceChildren(...releases.map(renderReleaseCard));
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      featuredReleaseMount.replaceChildren(
+        el("div", { class: "muted" }, ["Could not load releases data. ", el("span", { class: "mono" }, msg)])
+      );
+      releaseCatalogMount.replaceChildren(
+        el("div", { class: "muted" }, "Add releases to data/releases.json to populate the catalog.")
+      );
+    }
+  }
 
-    releases.sort(sortNewestFirst);
-
-    featuredMount.replaceChildren(renderFeatured(releases[0]));
-    catalogMount.replaceChildren(...releases.map(renderCard));
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
-    featuredMount.replaceChildren(
-      el("div", { class: "muted" }, [
-        "Could not load releases data. ",
-        el("span", { class: "mono" }, msg),
-      ])
-    );
-    catalogMount.replaceChildren(
-      el("div", { class: "muted" }, "Add releases to data/releases.json to populate the catalog.")
-    );
+  if (featuredVideoMount && videoCatalogMount) {
+    try {
+      const videos = await loadJson("data/videos.json");
+      if (!Array.isArray(videos) || videos.length === 0) throw new Error("No videos found.");
+      videos.sort(sortNewestVideoFirst);
+      featuredVideoMount.replaceChildren(renderFeaturedVideo(videos[0]));
+      videoCatalogMount.replaceChildren(...videos.map(renderVideoCard));
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      featuredVideoMount.replaceChildren(
+        el("div", { class: "muted" }, ["Add videos to ", el("code", {}, "data/videos.json"), " to populate this page."])
+      );
+      videoCatalogMount.replaceChildren(
+        el("div", { class: "muted" }, ["No videos yet. When you add some, they’ll appear here. ", el("span", { class: "mono" }, msg)])
+      );
+    }
   }
 }
 

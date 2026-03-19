@@ -7,8 +7,11 @@ This repo is a simple static website intended to be hosted on **GitHub Pages**.
 - Edit `index.html` to update:
   - Header/hero wording if you want
   - Social link tiles (Bandcamp/YouTube/email/etc.)
+- `soundtracks.html` renders your soundtrack catalog from `data/releases.json`.
+- `videos.html` renders your video catalog from `data/videos.json`.
 - Edit `styles.css` if you want to tweak layout/colors.
 - Edit `data/releases.json` to manage your soundtrack list (the site auto-renders from this file).
+  - Edit `data/videos.json` to manage your videos list (the site auto-renders from this file).
 
 ## Adding cover art
 

@@ -3,16 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sophyron — Creator Hub</title>
+    <title>Sophyron — Videos</title>
     <meta
       name="description"
-      content="A small creator hub for soundtracks and videos. Find the latest release, browse the catalog, and watch experiments, songs, and jingles."
+      content="Videos by Sophyron: cartoon experiments, silly song videos, and funny jingles."
     />
 
-    <meta property="og:title" content="Sophyron — Creator Hub" />
+    <meta property="og:title" content="Sophyron — Videos" />
     <meta
       property="og:description"
-      content="A small creator hub for soundtracks and videos. Find the latest release, browse the catalog, and watch experiments, songs, and jingles."
+      content="Videos by Sophyron: cartoon experiments, silly song videos, and funny jingles."
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="assets/og-image.svg" />
@@ -25,35 +25,36 @@
 
     <header class="site-header">
       <div class="container header-inner">
-        <div class="brand">
+        <a class="brand" href="index.html" aria-label="Sophyron home">
           <div class="brand-mark" aria-hidden="true">S</div>
           <div class="brand-text">
             <div class="brand-name">Sophyron</div>
-            <div class="brand-tagline">Game soundtrack creator hub</div>
+            <div class="brand-tagline">Creator hub</div>
           </div>
-        </div>
+        </a>
 
         <nav class="top-nav" aria-label="Primary">
           <a href="soundtracks.html">Soundtracks</a>
-          <a href="videos.html">Videos</a>
+          <a href="videos.html" aria-current="page">Videos</a>
           <a href="#links">Links</a>
         </nav>
       </div>
     </header>
 
     <main id="main">
-      <section class="hero">
+      <section class="hero hero-compact">
         <div class="container hero-inner">
           <div class="hero-copy">
-            <h1>Music for worlds. Videos for laughs.</h1>
+            <h1>Videos</h1>
             <p class="lede">
-              Two lanes: game soundtracks (Bandcamp-first) and videos
-              (YouTube-first). Pick one, or browse both.
+              Cartoon experiments, musical song videos (often silly), and funny
+              advertising jingles. This page auto-populates from
+              <code>data/videos.json</code>.
             </p>
 
             <div class="hero-ctas">
-              <a class="btn btn-primary" href="soundtracks.html">Soundtracks</a>
-              <a class="btn btn-ghost" href="videos.html">Videos</a>
+              <a class="btn btn-primary" href="#latest">Latest video</a>
+              <a class="btn btn-ghost" href="#catalog">Browse all</a>
             </div>
           </div>
 
@@ -66,38 +67,32 @@
         </div>
       </section>
 
-      <section class="section">
+      <section id="latest" class="section">
         <div class="container">
           <div class="section-head">
-            <h2>Start here</h2>
-            <p class="muted">
-              Jump straight to the catalog you want.
-            </p>
+            <h2>Latest video</h2>
+            <p class="muted">Always the newest by <code>publishDate</code>.</p>
           </div>
 
-          <div class="grid grid-2">
-            <a class="hub-tile" href="soundtracks.html">
-              <div class="hub-kicker">Bandcamp-first</div>
-              <div class="hub-title">Soundtracks</div>
-              <div class="hub-sub muted">
-                Latest release + full catalog, with links to Bandcamp and YouTube.
+          <div id="featured-video-mount">
+            <noscript>
+              <div class="muted">
+                This page needs JavaScript enabled to load videos from
+                <code>data/videos.json</code>.
               </div>
-              <div class="hub-cta">
-                <span class="btn btn-primary">Browse soundtracks</span>
-              </div>
-            </a>
-
-            <a class="hub-tile" href="videos.html">
-              <div class="hub-kicker">YouTube-first</div>
-              <div class="hub-title">Videos</div>
-              <div class="hub-sub muted">
-                Cartoon experiments, silly song videos, and funny jingles.
-              </div>
-              <div class="hub-cta">
-                <span class="btn btn-ghost">Browse videos</span>
-              </div>
-            </a>
+            </noscript>
           </div>
+        </div>
+      </section>
+
+      <section id="catalog" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>All videos</h2>
+            <p class="muted">Newest first.</p>
+          </div>
+
+          <div class="grid" id="video-catalog-mount"></div>
         </div>
       </section>
 
@@ -105,22 +100,10 @@
         <div class="container">
           <div class="section-head">
             <h2>Links</h2>
-            <p class="muted">Make these the prominent social destinations.</p>
+            <p class="muted">Primary destinations.</p>
           </div>
 
           <div class="links">
-            <a
-              class="link-tile"
-              href="https://sophyron.bandcamp.com/album/summon-seas-ost"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span class="link-icon" aria-hidden="true">BC</span>
-              <span class="link-text">
-                <span class="link-title">Bandcamp</span>
-                <span class="link-sub muted">Primary listening / purchase</span>
-              </span>
-            </a>
             <a
               class="link-tile"
               href="https://www.youtube.com/watch?v=ErWR7-lWppQ"
@@ -130,7 +113,19 @@
               <span class="link-icon" aria-hidden="true">YT</span>
               <span class="link-text">
                 <span class="link-title">YouTube</span>
-                <span class="link-sub muted">Playlists + full albums</span>
+                <span class="link-sub muted">Playlists + videos</span>
+              </span>
+            </a>
+            <a
+              class="link-tile"
+              href="https://sophyron.bandcamp.com/album/summon-seas-ost"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span class="link-icon" aria-hidden="true">BC</span>
+              <span class="link-text">
+                <span class="link-title">Bandcamp</span>
+                <span class="link-sub muted">Soundtracks</span>
               </span>
             </a>
             <a class="link-tile" href="mailto:sophyron.creations@gmail.com">
@@ -149,15 +144,13 @@
       <div class="container footer-inner">
         <div class="muted">© <span id="year"></span> Sophyron</div>
         <div class="footer-mini-nav">
+          <a href="index.html">Home</a>
           <a href="soundtracks.html">Soundtracks</a>
-          <a href="videos.html">Videos</a>
-          <a href="#links">Links</a>
         </div>
       </div>
     </footer>
 
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
+    <script src="main.js"></script>
   </body>
 </html>
+
