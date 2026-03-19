@@ -121,11 +121,42 @@ function sortNewestVideoFirst(a, b) {
   return (Number.isNaN(db) ? 0 : db) - (Number.isNaN(da) ? 0 : da);
 }
 
+function getYouTubeVideoId(url) {
+  try {
+    const u = new URL(url);
+    if (u.hostname === "youtu.be") {
+      const id = u.pathname.replace(/^\/+/, "").split("/")[0];
+      return id || null;
+    }
+    if (u.hostname.endsWith("youtube.com")) {
+      const v = u.searchParams.get("v");
+      if (v) return v;
+      const parts = u.pathname.split("/").filter(Boolean);
+      const idx = parts.indexOf("shorts");
+      if (idx >= 0 && parts[idx + 1]) return parts[idx + 1];
+    }
+  } catch {
+    // ignore
+  }
+  return null;
+}
+
+function getYouTubeThumbnailUrl(youtubeUrl) {
+  const id = getYouTubeVideoId(youtubeUrl);
+  if (!id) return null;
+  // Common, widely-supported thumbnail endpoint (no API key required).
+  return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+}
+
+function getVideoThumbnail(video) {
+  return video.thumbnailImage || getYouTubeThumbnailUrl(video.youtubeUrl) || "assets/og-image.svg";
+}
+
 function renderFeaturedVideo(video) {
   return el("article", { class: "featured" }, [
     el("div", { class: "cover" }, [
       el("img", {
-        src: video.thumbnailImage,
+        src: getVideoThumbnail(video),
         alt: `Thumbnail for ${video.title}`,
         loading: "lazy",
       }),
@@ -163,7 +194,7 @@ function renderVideoCard(video) {
     el(
       "a",
       { class: "card-media", href: video.youtubeUrl, target: "_blank", rel: "noreferrer" },
-      el("img", { src: video.thumbnailImage, alt: `Thumbnail for ${video.title}`, loading: "lazy" })
+      el("img", { src: getVideoThumbnail(video), alt: `Thumbnail for ${video.title}`, loading: "lazy" })
     ),
     el("div", { class: "card-body" }, [
       el("div", { class: "card-title", text: video.title }),

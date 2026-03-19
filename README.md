@@ -34,6 +34,15 @@ Then set each release's `coverImage` path in `data/releases.json` (example alrea
 
 The homepage automatically sorts by `releaseDate`, so the newest becomes **Latest**.
 
+## Adding a new video
+
+Add an object to `data/videos.json` with:
+
+- `title`
+- `publishDate` (ISO format like `2026-03-01`)
+- `youtubeUrl`
+- `thumbnailImage` (optional). If you omit it, the site will try to use YouTube's default thumbnail based on the `youtubeUrl`.
+
 ## GitHub Pages publishing (user site)
 
 In GitHub, open the repo settings:
