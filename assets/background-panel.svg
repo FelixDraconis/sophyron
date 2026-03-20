@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 2200" fill="none">
+  <defs>
+    <linearGradient id="centerFade" x1="800" y1="0" x2="800" y2="2200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0a0d12" stop-opacity="0"/>
+      <stop offset="0.18" stop-color="#0a0d12" stop-opacity="0.05"/>
+      <stop offset="0.5" stop-color="#0a0d12" stop-opacity="0.18"/>
+      <stop offset="0.82" stop-color="#0a0d12" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#0a0d12" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="indigoGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1050 520) rotate(90) scale(500 760)">
+      <stop offset="0" stop-color="#5067c8" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#5067c8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="tealGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1180 820) rotate(90) scale(320 560)">
+      <stop offset="0" stop-color="#4d9b8a" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#4d9b8a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="goldGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(980 980) rotate(90) scale(220 320)">
+      <stop offset="0" stop-color="#d4bb72" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#d4bb72" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sheen" x1="0" y1="1100" x2="1600" y2="1100" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f5f4ee" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#f5f4ee" stop-opacity="0.045"/>
+      <stop offset="1" stop-color="#f5f4ee" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="2200" fill="url(#centerFade)"/>
+
+  <g opacity="0.95">
+    <path d="M690 180C885 180 1035 250 1155 402C1262 538 1328 726 1408 1110C1328 1494 1262 1682 1155 1818C1035 1970 885 2040 690 2040L1600 2040L1600 180Z" fill="url(#indigoGlow)"/>
+    <path d="M905 330C1060 330 1174 410 1260 562C1334 694 1383 844 1438 1110C1383 1376 1334 1526 1260 1658C1174 1810 1060 1890 905 1890L1600 1890L1600 330Z" fill="url(#tealGlow)"/>
+    <path d="M995 640C1080 640 1148 686 1204 772C1256 853 1291 967 1328 1110C1291 1253 1256 1367 1204 1448C1148 1534 1080 1580 995 1580L1600 1580L1600 640Z" fill="url(#goldGlow)"/>
+  </g>
+
+  <rect x="0" y="1098" width="1600" height="4" fill="url(#sheen)" opacity="0.75"/>
+</svg>
