@@ -65,51 +65,26 @@ body {
 }
 
 body {
-  position: relative;
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial,
     "Apple Color Emoji", "Segoe UI Emoji";
   color: var(--text);
   background: radial-gradient(
-      1200px 800px at 20% -10%,
-      var(--accent-glow),
-      transparent 55%
+      1400px 900px at 18% -12%,
+      rgba(var(--accent-rgb), 0.22),
+      transparent 60%
     ),
     radial-gradient(
-      1000px 700px at 90% 10%,
-      var(--accent-2-glow),
-      transparent 55%
+      1200px 760px at 88% 8%,
+      rgba(var(--accent-2-rgb), 0.14),
+      transparent 58%
     ),
     radial-gradient(
-      800px 500px at 50% 100%,
-      var(--warm-glow),
-      transparent 55%
+      1000px 620px at 50% 72%,
+      rgba(var(--accent-warm-rgb), 0.05),
+      transparent 62%
     ),
     linear-gradient(180deg, var(--bg-deeper) 0%, var(--bg-deep) 42%, var(--bg-deepest) 100%);
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -2;
-  background:
-    radial-gradient(900px 520px at 12% 8%, rgba(var(--accent-rgb), 0.12), transparent 62%),
-    radial-gradient(720px 440px at 88% 16%, rgba(var(--accent-2-rgb), 0.1), transparent 60%),
-    radial-gradient(620px 320px at 50% 72%, rgba(var(--accent-warm-rgb), 0.06), transparent 58%),
-    radial-gradient(1000px 700px at 50% 120%, rgba(5, 8, 13, 0.66), transparent 58%);
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 18%),
-    radial-gradient(circle at 50% 0%, transparent 0, rgba(4, 6, 10, 0.22) 100%);
 }
 
 a {
