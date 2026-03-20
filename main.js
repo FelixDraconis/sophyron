@@ -244,8 +244,45 @@ async function init() {
       const videos = await loadJson("data/videos.json");
       if (!Array.isArray(videos) || videos.length === 0) throw new Error("No videos found.");
       videos.sort(sortNewestVideoFirst);
-      featuredVideoMount.replaceChildren(renderFeaturedVideo(videos[0]));
-      videoCatalogMount.replaceChildren(...videos.map(renderVideoCard));
+
+      const search = new URLSearchParams(window.location.search);
+      const categoryParam = (search.get("category") || "").trim().toLowerCase();
+      const selectedCategory =
+        categoryParam === "music" || categoryParam === "story" ? categoryParam : "all";
+
+      const filtered =
+        selectedCategory === "all"
+          ? videos
+          : videos.filter((v) => (v.category || "").toLowerCase() === selectedCategory);
+
+      // Update filter UI + catalog title.
+      const titleEl = document.getElementById("videos-catalog-title");
+      if (titleEl) {
+        const pretty =
+          selectedCategory === "all"
+            ? "All videos"
+            : selectedCategory === "music"
+              ? "Music videos"
+              : "Story / Fantasy videos";
+        titleEl.textContent = pretty;
+      }
+
+      const chipAll = document.getElementById("filter-all");
+      const chipMusic = document.getElementById("filter-music");
+      const chipStory = document.getElementById("filter-story");
+      if (chipAll) chipAll.classList.toggle("active", selectedCategory === "all");
+      if (chipMusic) chipMusic.classList.toggle("active", selectedCategory === "music");
+      if (chipStory) chipStory.classList.toggle("active", selectedCategory === "story");
+
+      if (filtered.length === 0) {
+        featuredVideoMount.replaceChildren(el("div", { class: "muted" }, "No videos found for this filter."));
+        videoCatalogMount.replaceChildren(
+          el("div", { class: "muted" }, "Add videos to the selected category in data/videos.json.")
+        );
+      } else {
+        featuredVideoMount.replaceChildren(renderFeaturedVideo(filtered[0]));
+        videoCatalogMount.replaceChildren(...filtered.map(renderVideoCard));
+      }
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       featuredVideoMount.replaceChildren(

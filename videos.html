@@ -88,8 +88,38 @@
       <section id="catalog" class="section">
         <div class="container">
           <div class="section-head">
-            <h2>All videos</h2>
-            <p class="muted">Newest first.</p>
+            <h2 id="videos-catalog-title">All videos</h2>
+            <p class="muted">Newest first. Use filters to focus your lane.</p>
+          </div>
+
+          <div class="filter-row" role="tablist" aria-label="Video category">
+            <a
+              id="filter-all"
+              class="filter-chip"
+              href="videos.html"
+              role="tab"
+              aria-controls="video-catalog-mount"
+            >
+              All
+            </a>
+            <a
+              id="filter-music"
+              class="filter-chip"
+              href="videos.html?category=music"
+              role="tab"
+              aria-controls="video-catalog-mount"
+            >
+              Music
+            </a>
+            <a
+              id="filter-story"
+              class="filter-chip"
+              href="videos.html?category=story"
+              role="tab"
+              aria-controls="video-catalog-mount"
+            >
+              Story / Fantasy
+            </a>
           </div>
 
           <div class="grid" id="video-catalog-mount"></div>
