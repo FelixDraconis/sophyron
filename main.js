@@ -267,6 +267,17 @@ async function init() {
         titleEl.textContent = pretty;
       }
 
+      const latestTitleEl = document.getElementById("videos-latest-title");
+      if (latestTitleEl) {
+        const pretty =
+          selectedCategory === "all"
+            ? "Latest video"
+            : selectedCategory === "music"
+              ? "Latest music video"
+              : "Latest story / fantasy video";
+        latestTitleEl.textContent = pretty;
+      }
+
       const chipAll = document.getElementById("filter-all");
       const chipMusic = document.getElementById("filter-music");
       const chipStory = document.getElementById("filter-story");

@@ -56,6 +56,36 @@
               <a class="btn btn-primary" href="#latest">Latest video</a>
               <a class="btn btn-ghost" href="#catalog">Browse all</a>
             </div>
+
+            <div class="filter-row" role="tablist" aria-label="Video category">
+              <a
+                id="filter-all"
+                class="filter-chip"
+                href="videos.html"
+                role="tab"
+                aria-controls="video-catalog-mount"
+              >
+                All
+              </a>
+              <a
+                id="filter-music"
+                class="filter-chip"
+                href="videos.html?category=music"
+                role="tab"
+                aria-controls="video-catalog-mount"
+              >
+                Music
+              </a>
+              <a
+                id="filter-story"
+                class="filter-chip"
+                href="videos.html?category=story"
+                role="tab"
+                aria-controls="video-catalog-mount"
+              >
+                Story / Fantasy
+              </a>
+            </div>
           </div>
 
           <div class="hero-art" aria-hidden="true">
@@ -70,7 +100,7 @@
       <section id="latest" class="section">
         <div class="container">
           <div class="section-head">
-            <h2>Latest video</h2>
+            <h2 id="videos-latest-title">Latest video</h2>
             <p class="muted">Always the newest by <code>publishDate</code>.</p>
           </div>
 
@@ -90,36 +120,6 @@
           <div class="section-head">
             <h2 id="videos-catalog-title">All videos</h2>
             <p class="muted">Newest first. Use filters to focus your lane.</p>
-          </div>
-
-          <div class="filter-row" role="tablist" aria-label="Video category">
-            <a
-              id="filter-all"
-              class="filter-chip"
-              href="videos.html"
-              role="tab"
-              aria-controls="video-catalog-mount"
-            >
-              All
-            </a>
-            <a
-              id="filter-music"
-              class="filter-chip"
-              href="videos.html?category=music"
-              role="tab"
-              aria-controls="video-catalog-mount"
-            >
-              Music
-            </a>
-            <a
-              id="filter-story"
-              class="filter-chip"
-              href="videos.html?category=story"
-              role="tab"
-              aria-controls="video-catalog-mount"
-            >
-              Story / Fantasy
-            </a>
           </div>
 
           <div class="grid" id="video-catalog-mount"></div>
