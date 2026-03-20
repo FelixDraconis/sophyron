@@ -97,9 +97,14 @@ a {
   display: grid;
   place-items: center;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(124, 92, 255, 0.95), rgba(53, 208, 186, 0.9));
-  color: #05060a;
-  font-weight: 800;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 28% 28%, rgba(124, 92, 255, 0.55), transparent 48%),
+    radial-gradient(circle at 76% 78%, rgba(53, 208, 186, 0.28), transparent 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .brand-name {
@@ -111,6 +116,82 @@ a {
   color: var(--muted);
   font-size: 13px;
   margin-top: 1px;
+}
+
+.brand-glyph,
+.hero-emblem-glyph {
+  position: relative;
+  display: block;
+}
+
+.brand-glyph {
+  width: 24px;
+  height: 24px;
+}
+
+.brand-glyph-orbit,
+.hero-emblem-orbit {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.68);
+}
+
+.brand-glyph-orbit {
+  transform: rotate(-22deg);
+  opacity: 0.82;
+}
+
+.brand-glyph-moon,
+.hero-emblem-moon {
+  position: absolute;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(201, 252, 245, 0.82));
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.18);
+}
+
+.brand-glyph-moon {
+  width: 10px;
+  height: 10px;
+  left: 7px;
+  top: 7px;
+}
+
+.brand-glyph-moon::after,
+.hero-emblem-moon::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  background: #0b0c10;
+}
+
+.brand-glyph-moon::after {
+  width: 8px;
+  height: 8px;
+  left: 4px;
+  top: 1px;
+}
+
+.brand-glyph-star,
+.hero-emblem-star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 244, 189, 0.95);
+  transform: rotate(45deg);
+  box-shadow: 0 0 12px rgba(255, 244, 189, 0.45);
+}
+
+.brand-glyph-star-a {
+  top: 3px;
+  right: 2px;
+}
+
+.brand-glyph-star-b {
+  left: 1px;
+  bottom: 4px;
+  width: 3px;
+  height: 3px;
 }
 
 .top-nav {
@@ -216,32 +297,124 @@ a {
   box-shadow: var(--shadow);
   overflow: hidden;
 }
-.hero-art-glow {
-  position: absolute;
-  inset: -60px;
-  background: radial-gradient(
-      240px 180px at 30% 20%,
-      rgba(124, 92, 255, 0.6),
-      transparent 60%
-    ),
-    radial-gradient(
-      240px 180px at 70% 65%,
-      rgba(53, 208, 186, 0.45),
-      transparent 62%
-    );
-  filter: blur(2px);
+
+.hero-emblem-card {
+  display: grid;
+  place-items: center;
+  padding: 26px;
+  background:
+    radial-gradient(280px 220px at 24% 20%, rgba(124, 92, 255, 0.26), transparent 60%),
+    radial-gradient(280px 220px at 78% 76%, rgba(53, 208, 186, 0.18), transparent 54%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
 }
-.hero-art-lines {
+
+.hero-emblem-card::before {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.hero-emblem-card::after {
+  content: "";
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.09) 0px,
-    rgba(255, 255, 255, 0.09) 1px,
-    transparent 1px,
-    transparent 10px
-  );
-  opacity: 0.35;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 30%),
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05) 0px,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px,
+      transparent 12px
+    );
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+.hero-emblem-frame {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 22px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(6, 8, 12, 0.28), rgba(6, 8, 12, 0.1));
+}
+
+.hero-emblem-glyph {
+  width: 112px;
+  height: 112px;
+}
+
+.hero-emblem-orbit {
+  transform: rotate(-24deg);
+  border-width: 2px;
+  opacity: 0.88;
+}
+
+.hero-emblem-moon {
+  width: 42px;
+  height: 42px;
+  left: 32px;
+  top: 34px;
+}
+
+.hero-emblem-moon::after {
+  width: 34px;
+  height: 34px;
+  left: 16px;
+  top: 4px;
+}
+
+.hero-emblem-star {
+  width: 9px;
+  height: 9px;
+}
+
+.hero-emblem-star-a {
+  right: 16px;
+  top: 14px;
+}
+
+.hero-emblem-star-b {
+  left: 12px;
+  bottom: 20px;
+  width: 7px;
+  height: 7px;
+}
+
+.hero-emblem-kicker {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.hero-emblem-title {
+  max-width: 13ch;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.hero-emblem-sub {
+  margin: 0;
+  max-width: 26ch;
+  color: rgba(255, 255, 255, 0.74);
+  line-height: 1.55;
+  text-wrap: balance;
 }
 
 .section {
