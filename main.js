@@ -15,6 +15,45 @@ function el(tag, attrs = {}, children = []) {
   return node;
 }
 
+const MONTH_NAMES = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+];
+
+function getMonthlyBranding(date = new Date()) {
+  const monthIndex = date.getMonth();
+  const month = MONTH_NAMES[monthIndex] || MONTH_NAMES[0];
+  const monthNumber = String(monthIndex + 1).padStart(2, "0");
+  const stem = `${monthNumber}-${month}.png`;
+
+  return {
+    icon: `assets/branding/icons/${stem}`,
+    hero: `assets/branding/hero/${stem}`,
+  };
+}
+
+function applyMonthlyBranding() {
+  const branding = getMonthlyBranding();
+
+  document.querySelectorAll(".js-brand-icon").forEach((img) => {
+    img.setAttribute("src", branding.icon);
+  });
+
+  document.querySelectorAll(".js-brand-hero").forEach((img) => {
+    img.setAttribute("src", branding.hero);
+  });
+}
+
 function formatMonthYear(isoDate) {
   const d = new Date(isoDate);
   if (Number.isNaN(d.getTime())) return isoDate;
@@ -213,6 +252,8 @@ async function loadJson(path) {
 }
 
 async function init() {
+  applyMonthlyBranding();
+
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
@@ -307,4 +348,3 @@ async function init() {
 }
 
 init();
-

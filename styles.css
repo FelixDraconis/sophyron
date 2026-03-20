@@ -71,26 +71,33 @@ body {
   color: var(--text);
   background:
     radial-gradient(
-      48% 140% at 0% 50%,
-      rgba(58, 158, 112, 0.34) 0%,
-      rgba(36, 96, 72, 0.18) 36%,
-      rgba(10, 13, 18, 0) 72%
+      34% 120% at 0% 50%,
+      rgba(72, 164, 148, 0.28) 0%,
+      rgba(36, 98, 114, 0.16) 34%,
+      rgba(10, 13, 18, 0) 62%
     ),
     radial-gradient(
-      48% 140% at 100% 50%,
-      rgba(72, 176, 126, 0.3) 0%,
-      rgba(39, 103, 78, 0.16) 34%,
-      rgba(10, 13, 18, 0) 72%
+      34% 120% at 100% 50%,
+      rgba(104, 112, 224, 0.24) 0%,
+      rgba(64, 70, 156, 0.13) 34%,
+      rgba(10, 13, 18, 0) 62%
     ),
     linear-gradient(
       90deg,
-      rgba(9, 16, 14, 0.98) 0%,
-      rgba(8, 12, 14, 0.99) 28%,
-      rgba(7, 10, 12, 1) 50%,
-      rgba(8, 12, 14, 0.99) 72%,
-      rgba(9, 16, 14, 0.98) 100%
+      rgba(18, 34, 40, 0.96) 0%,
+      rgba(14, 22, 36, 0.99) 20%,
+      rgba(10, 11, 26, 1) 50%,
+      rgba(14, 22, 36, 0.99) 80%,
+      rgba(18, 34, 40, 0.96) 100%
     ),
-    linear-gradient(180deg, #06080c 0%, #0a0d12 42%, #0d1118 100%);
+    linear-gradient(
+      180deg,
+      rgba(108, 126, 214, 0.08) 0%,
+      rgba(64, 112, 162, 0.04) 26%,
+      rgba(74, 54, 148, 0.06) 62%,
+      rgba(14, 18, 32, 0) 100%
+    ),
+    linear-gradient(180deg, #06080d 0%, #0a0d16 44%, #0f1124 100%);
 }
 
 a {
@@ -161,6 +168,13 @@ a {
 .brand-name {
   font-weight: 800;
   letter-spacing: 0.2px;
+}
+
+.brand-icon-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
 }
 
 .brand-tagline {
@@ -342,7 +356,7 @@ a {
   position: relative;
   width: min(360px, 100%);
   aspect-ratio: 1 / 1;
-  border-radius: 28px;
+  border-radius: 24px;
   border: 1px solid var(--line);
   background: var(--surface);
   backdrop-filter: blur(10px);
@@ -353,7 +367,7 @@ a {
 .hero-emblem-card {
   display: grid;
   place-items: center;
-  padding: 26px;
+  padding: 16px;
   background:
     radial-gradient(280px 220px at 24% 20%, var(--accent-soft), transparent 60%),
     radial-gradient(280px 220px at 78% 76%, var(--accent-2-soft), transparent 54%),
@@ -364,8 +378,8 @@ a {
 .hero-emblem-card::before {
   content: "";
   position: absolute;
-  inset: 16px;
-  border-radius: 22px;
+  inset: 10px;
+  border-radius: 18px;
   border: 1px solid var(--line-faint);
   pointer-events: none;
 }
@@ -390,15 +404,25 @@ a {
   align-content: center;
   justify-items: center;
   text-align: center;
-  gap: 14px;
-  padding: 22px;
-  border-radius: 24px;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 18px;
   border: 1px solid var(--line-soft);
   background: linear-gradient(180deg, rgba(6, 8, 12, 0.36), rgba(6, 8, 12, 0.16));
 }
 
 .hero-emblem-frame-visual {
   place-items: center;
+}
+
+.hero-brand-image {
+  width: min(100%, 324px);
+  aspect-ratio: 1 / 1;
+  max-height: 100%;
+  display: block;
+  object-fit: contain;
+  border-radius: 18%;
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.24));
 }
 
 .hero-emblem-glyph {

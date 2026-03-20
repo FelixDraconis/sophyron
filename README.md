@@ -13,6 +13,18 @@ This repo is a simple static website intended to be hosted on **GitHub Pages**.
 - Edit `data/releases.json` to manage your soundtrack list (the site auto-renders from this file).
   - Edit `data/videos.json` to manage your videos list (the site auto-renders from this file).
 
+## Local preview on Mac
+
+Run:
+
+- `./start-local.sh`
+
+That starts a small local web server on `http://localhost:8000/` and opens the site in your default browser.
+
+To use a different port:
+
+- `./start-local.sh 8080`
+
 ## Adding cover art
 
 Place your cover images in:
@@ -53,4 +65,3 @@ In GitHub, open the repo settings:
 - **Folder**: `/(root)`
 
 After that, your site should publish at your GitHub Pages URL.
-
