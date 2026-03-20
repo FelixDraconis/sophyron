@@ -1,5 +1,14 @@
 [
   {
+    "id": "rainy-reminders-of-you",
+    "title": "Rainy Reminders Of You",
+    "publishDate": "2026-03-19",
+    "type": "Music Video",
+    "category": "music",
+    "blurb": "When you leave an umbrella, are you leaving a memory of rainy days with you?",
+    "youtubeUrl": "https://youtube.com/shorts/eoTPIkCUYdI"
+  },
+  {
     "id": "luna",
     "title": "Luna",
     "publishDate": "2026-02-19",
@@ -10,4 +19,3 @@
     "thumbnailImage": "assets/videos/luna.png"
   }
 ]
-
