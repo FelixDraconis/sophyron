@@ -1,13 +1,49 @@
 :root {
   --bg: #0a0d12;
+  --bg-elevated: rgba(10, 13, 18, 0.78);
+  --bg-deep: #0a0d12;
+  --bg-deeper: #06080c;
+  --bg-deepest: #0d1118;
   --panel: rgba(245, 248, 255, 0.06);
   --panel-2: rgba(245, 248, 255, 0.1);
+  --panel-strong: rgba(245, 248, 255, 0.14);
+  --panel-soft: rgba(245, 248, 255, 0.04);
+  --panel-soft-2: rgba(245, 248, 255, 0.03);
+  --panel-soft-3: rgba(245, 248, 255, 0.02);
+  --panel-hover: rgba(245, 248, 255, 0.07);
+  --panel-hover-2: rgba(245, 248, 255, 0.06);
   --text: rgba(245, 244, 238, 0.94);
+  --text-soft: rgba(245, 244, 238, 0.84);
+  --text-kicker: rgba(245, 244, 238, 0.78);
   --muted: rgba(214, 221, 231, 0.7);
   --line: rgba(197, 210, 227, 0.16);
+  --line-strong: rgba(197, 210, 227, 0.22);
+  --line-soft: rgba(197, 210, 227, 0.12);
+  --line-faint: rgba(197, 210, 227, 0.08);
   --accent: #5067c8;
   --accent-2: #4d9b8a;
   --accent-warm: #d4bb72;
+  --accent-rgb: 80, 103, 200;
+  --accent-2-rgb: 77, 155, 138;
+  --accent-warm-rgb: 212, 187, 114;
+  --accent-glow: rgba(var(--accent-rgb), 0.3);
+  --accent-glow-strong: rgba(var(--accent-rgb), 0.52);
+  --accent-soft: rgba(var(--accent-rgb), 0.24);
+  --accent-border: rgba(var(--accent-rgb), 0.45);
+  --accent-border-strong: rgba(109, 132, 226, 0.78);
+  --accent-active: rgba(var(--accent-rgb), 0.72);
+  --accent-fill: rgba(var(--accent-rgb), 0.24);
+  --accent-2-glow: rgba(var(--accent-2-rgb), 0.18);
+  --accent-2-glow-strong: rgba(var(--accent-2-rgb), 0.24);
+  --accent-2-soft: rgba(var(--accent-2-rgb), 0.16);
+  --warm-glow: rgba(var(--accent-warm-rgb), 0.08);
+  --warm-soft: rgba(var(--accent-warm-rgb), 0.09);
+  --star: rgba(var(--accent-warm-rgb), 0.95);
+  --star-glow: rgba(var(--accent-warm-rgb), 0.45);
+  --moon-from: rgba(255, 252, 241, 0.96);
+  --moon-to: rgba(225, 240, 233, 0.82);
+  --moon-shadow: rgba(255, 255, 255, 0.18);
+  --scrim: rgba(0, 0, 0, 0.22);
   --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   --radius: 18px;
   --radius-sm: 12px;
@@ -32,20 +68,20 @@ body {
   color: var(--text);
   background: radial-gradient(
       1200px 800px at 20% -10%,
-      rgba(80, 103, 200, 0.3),
+      var(--accent-glow),
       transparent 55%
     ),
     radial-gradient(
       1000px 700px at 90% 10%,
-      rgba(77, 155, 138, 0.18),
+      var(--accent-2-glow),
       transparent 55%
     ),
     radial-gradient(
       800px 500px at 50% 100%,
-      rgba(212, 187, 114, 0.08),
+      var(--warm-glow),
       transparent 55%
     ),
-    linear-gradient(180deg, #06080c 0%, #0a0d12 42%, #0d1118 100%);
+    linear-gradient(180deg, var(--bg-deeper) 0%, var(--bg-deep) 42%, var(--bg-deepest) 100%);
 }
 
 a {
@@ -63,7 +99,7 @@ a {
   position: absolute;
   left: -999px;
   top: 12px;
-  background: #111;
+  background: var(--bg-elevated);
   border: 1px solid var(--line);
   padding: 10px 12px;
   border-radius: 10px;
@@ -78,7 +114,7 @@ a {
   top: 0;
   z-index: 5;
   backdrop-filter: blur(10px);
-  background: rgba(11, 12, 16, 0.6);
+  background: var(--bg-elevated);
   border-bottom: 1px solid var(--line);
 }
 
@@ -106,11 +142,11 @@ a {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at 28% 28%, rgba(80, 103, 200, 0.52), transparent 48%),
-    radial-gradient(circle at 76% 78%, rgba(77, 155, 138, 0.24), transparent 40%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    radial-gradient(circle at 28% 28%, var(--accent-glow-strong), transparent 48%),
+    radial-gradient(circle at 76% 78%, var(--accent-2-glow-strong), transparent 40%),
+    linear-gradient(180deg, var(--panel-2), var(--panel-soft-2));
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 var(--panel);
 }
 
 .brand-name {
@@ -140,7 +176,7 @@ a {
   position: absolute;
   inset: 0;
   border-radius: 999px;
-  border: 1.5px solid rgba(255, 255, 255, 0.68);
+  border: 1.5px solid rgba(245, 244, 238, 0.68);
 }
 
 .brand-glyph-orbit {
@@ -152,8 +188,8 @@ a {
 .hero-emblem-moon {
   position: absolute;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(201, 252, 245, 0.82));
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.18);
+  background: linear-gradient(180deg, var(--moon-from), var(--moon-to));
+  box-shadow: 0 0 20px var(--moon-shadow);
 }
 
 .brand-glyph-moon {
@@ -168,7 +204,7 @@ a {
   content: "";
   position: absolute;
   border-radius: 999px;
-  background: #0b0c10;
+  background: var(--bg);
 }
 
 .brand-glyph-moon::after {
@@ -183,9 +219,9 @@ a {
   position: absolute;
   width: 4px;
   height: 4px;
-  background: rgba(212, 187, 114, 0.95);
+  background: var(--star);
   transform: rotate(45deg);
-  box-shadow: 0 0 12px rgba(212, 187, 114, 0.45);
+  box-shadow: 0 0 12px var(--star-glow);
 }
 
 .brand-glyph-star-a {
@@ -214,7 +250,7 @@ a {
 .top-nav a:hover {
   color: var(--text);
   border-color: var(--line);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel-soft);
 }
 
 .hero {
@@ -253,31 +289,31 @@ a {
   padding: 11px 14px;
   border-radius: 14px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.04);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+  background: var(--panel-soft);
+  box-shadow: 0 1px 0 var(--panel) inset;
   transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
   font-weight: 650;
   letter-spacing: 0.1px;
 }
 .btn:hover {
   transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: var(--panel-hover);
+  border-color: var(--line-strong);
 }
 .btn:active {
   transform: translateY(0);
 }
 
 .btn-primary {
-  border-color: rgba(80, 103, 200, 0.45);
+  border-color: var(--accent-border);
   background: linear-gradient(
     135deg,
-    rgba(80, 103, 200, 0.95),
+    rgba(var(--accent-rgb), 0.95),
     rgba(62, 84, 170, 0.6)
   );
 }
 .btn-primary:hover {
-  border-color: rgba(109, 132, 226, 0.78);
+  border-color: var(--accent-border-strong);
   background: linear-gradient(
     135deg,
     rgba(95, 118, 214, 1),
@@ -286,7 +322,7 @@ a {
 }
 
 .btn-ghost {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--panel-soft-3);
 }
 
 .hero-art {
@@ -299,7 +335,7 @@ a {
   aspect-ratio: 1 / 1;
   border-radius: 28px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel-soft);
   box-shadow: var(--shadow);
   overflow: hidden;
 }
@@ -309,10 +345,10 @@ a {
   place-items: center;
   padding: 26px;
   background:
-    radial-gradient(280px 220px at 24% 20%, rgba(80, 103, 200, 0.24), transparent 60%),
-    radial-gradient(280px 220px at 78% 76%, rgba(77, 155, 138, 0.16), transparent 54%),
-    radial-gradient(200px 180px at 50% 88%, rgba(212, 187, 114, 0.09), transparent 60%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+    radial-gradient(280px 220px at 24% 20%, var(--accent-soft), transparent 60%),
+    radial-gradient(280px 220px at 78% 76%, var(--accent-2-soft), transparent 54%),
+    radial-gradient(200px 180px at 50% 88%, var(--warm-soft), transparent 60%),
+    linear-gradient(180deg, var(--panel), var(--panel-soft-2));
 }
 
 .hero-emblem-card::before {
@@ -320,7 +356,7 @@ a {
   position: absolute;
   inset: 16px;
   border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line-faint);
   pointer-events: none;
 }
 
@@ -329,14 +365,8 @@ a {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 30%),
-    repeating-linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.05) 0px,
-      rgba(255, 255, 255, 0.05) 1px,
-      transparent 1px,
-      transparent 12px
-    );
+    linear-gradient(135deg, var(--panel), transparent 30%),
+    repeating-linear-gradient(135deg, var(--panel) 0px, var(--panel) 1px, transparent 1px, transparent 12px);
   opacity: 0.32;
   pointer-events: none;
 }
@@ -353,8 +383,8 @@ a {
   gap: 14px;
   padding: 22px;
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: linear-gradient(180deg, rgba(6, 8, 12, 0.28), rgba(6, 8, 12, 0.1));
+  border: 1px solid var(--line-soft);
+  background: linear-gradient(180deg, rgba(6, 8, 12, 0.36), rgba(6, 8, 12, 0.16));
 }
 
 .hero-emblem-frame-visual {
@@ -430,15 +460,15 @@ a {
   padding: 16px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+  background: linear-gradient(180deg, var(--panel), var(--panel-soft-2));
   box-shadow: var(--shadow);
 }
 
 .cover {
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid var(--panel-strong);
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--panel-soft-2);
 }
 .cover img {
   display: block;
@@ -451,7 +481,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--text-kicker);
   font-weight: 700;
   font-size: 12px;
   letter-spacing: 0.16em;
@@ -477,8 +507,8 @@ a {
 .meta {
   padding: 10px 10px;
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line-soft);
+  background: var(--panel-soft-2);
 }
 .meta-label {
   font-size: 12px;
@@ -505,8 +535,8 @@ code {
   font-size: 0.95em;
   padding: 2px 6px;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid var(--panel-strong);
+  background: var(--scrim);
 }
 
 .grid {
@@ -523,20 +553,20 @@ code {
   padding: 18px 18px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+  background: linear-gradient(180deg, var(--panel), var(--panel-soft-2));
   box-shadow: var(--shadow);
   transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
 }
 .hub-tile:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--line-strong);
+  background: var(--panel-hover-2);
 }
 .hub-kicker {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--text-kicker);
   font-weight: 700;
   font-size: 12px;
   letter-spacing: 0.16em;
@@ -568,37 +598,37 @@ code {
   align-items: center;
   padding: 8px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.03);
-  color: rgba(255, 255, 255, 0.84);
+  border: 1px solid var(--panel-strong);
+  background: var(--panel-soft-2);
+  color: var(--text-soft);
   font-weight: 650;
   font-size: 13px;
 }
 .filter-chip:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: var(--panel-hover-2);
+  border-color: var(--line-strong);
 }
 .filter-chip.active {
-  border-color: rgba(80, 103, 200, 0.72);
-  background: rgba(80, 103, 200, 0.24);
+  border-color: var(--accent-active);
+  background: var(--accent-fill);
 }
 
 .card {
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--panel-soft-2);
   overflow: hidden;
   transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
 }
 .card:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--line-strong);
+  background: var(--panel);
 }
 .card-media {
   display: block;
   aspect-ratio: 1 / 1;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--panel-soft-2);
 }
 .card-media img {
   width: 100%;
@@ -626,13 +656,13 @@ code {
   display: inline-flex;
   padding: 7px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--panel-strong);
+  background: var(--panel-soft-2);
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.84);
+  color: var(--text-soft);
 }
 .chip:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--panel-hover-2);
 }
 
 .card-placeholder:hover {
@@ -641,11 +671,11 @@ code {
 .placeholder-box {
   background: radial-gradient(
       300px 220px at 30% 30%,
-      rgba(124, 92, 255, 0.25),
+      var(--accent-soft),
       transparent 60%
     ),
-    radial-gradient(280px 220px at 70% 70%, rgba(53, 208, 186, 0.2), transparent 60%),
-    rgba(255, 255, 255, 0.02);
+    radial-gradient(280px 220px at 70% 70%, rgba(var(--accent-2-rgb), 0.2), transparent 60%),
+    var(--panel-soft-3);
   border-bottom: 1px solid var(--line);
 }
 
@@ -661,13 +691,13 @@ code {
   padding: 14px 14px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--panel-soft-2);
   transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
 }
 .link-tile:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--line-strong);
+  background: var(--panel);
 }
 .link-icon {
   width: 42px;
@@ -675,8 +705,8 @@ code {
   display: grid;
   place-items: center;
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--panel-strong);
+  background: var(--panel-soft);
   font-weight: 900;
   letter-spacing: 0.4px;
 }
@@ -692,7 +722,7 @@ code {
 
 .site-footer {
   border-top: 1px solid var(--line);
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(6, 8, 12, 0.28);
   padding: 22px 0;
 }
 .footer-inner {
@@ -714,7 +744,7 @@ code {
 .footer-mini-nav a:hover {
   color: var(--text);
   border-color: var(--line);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel-soft);
 }
 
 @media (max-width: 920px) {
