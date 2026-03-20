@@ -4,6 +4,9 @@
   --bg-deep: #0a0d12;
   --bg-deeper: #06080c;
   --bg-deepest: #0d1118;
+  --surface: rgba(14, 18, 26, 0.38);
+  --surface-strong: rgba(18, 24, 34, 0.58);
+  --surface-hover: rgba(24, 31, 44, 0.56);
   --panel: rgba(245, 248, 255, 0.06);
   --panel-2: rgba(245, 248, 255, 0.1);
   --panel-strong: rgba(245, 248, 255, 0.14);
@@ -62,6 +65,7 @@ body {
 }
 
 body {
+  position: relative;
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial,
     "Apple Color Emoji", "Segoe UI Emoji";
@@ -82,6 +86,30 @@ body {
       transparent 55%
     ),
     linear-gradient(180deg, var(--bg-deeper) 0%, var(--bg-deep) 42%, var(--bg-deepest) 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background:
+    radial-gradient(900px 520px at 12% 8%, rgba(var(--accent-rgb), 0.12), transparent 62%),
+    radial-gradient(720px 440px at 88% 16%, rgba(var(--accent-2-rgb), 0.1), transparent 60%),
+    radial-gradient(620px 320px at 50% 72%, rgba(var(--accent-warm-rgb), 0.06), transparent 58%),
+    radial-gradient(1000px 700px at 50% 120%, rgba(5, 8, 13, 0.66), transparent 58%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 18%),
+    radial-gradient(circle at 50% 0%, transparent 0, rgba(4, 6, 10, 0.22) 100%);
 }
 
 a {
@@ -335,7 +363,8 @@ a {
   aspect-ratio: 1 / 1;
   border-radius: 28px;
   border: 1px solid var(--line);
-  background: var(--panel-soft);
+  background: var(--surface);
+  backdrop-filter: blur(10px);
   box-shadow: var(--shadow);
   overflow: hidden;
 }
@@ -436,6 +465,21 @@ a {
 
 .section {
   padding: 34px 0;
+  position: relative;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-faint), transparent);
+}
+
+.hero + .section::before {
+  display: none;
 }
 .section-head {
   margin-bottom: 14px;
@@ -460,7 +504,8 @@ a {
   padding: 16px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, var(--panel), var(--panel-soft-2));
+  background: linear-gradient(180deg, rgba(18, 24, 34, 0.78), rgba(13, 17, 24, 0.62));
+  backdrop-filter: blur(8px);
   box-shadow: var(--shadow);
 }
 
@@ -553,14 +598,19 @@ code {
   padding: 18px 18px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, var(--panel), var(--panel-soft-2));
-  box-shadow: var(--shadow);
+  background: linear-gradient(180deg, rgba(17, 22, 31, 0.7), rgba(12, 16, 23, 0.42));
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.24);
   transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
 }
 .hub-tile:hover {
   transform: translateY(-2px);
   border-color: var(--line-strong);
-  background: var(--panel-hover-2);
+  background: linear-gradient(
+    180deg,
+    rgba(24, 31, 44, 0.8),
+    rgba(14, 19, 28, 0.54)
+  );
 }
 .hub-kicker {
   display: inline-flex;
@@ -616,19 +666,19 @@ code {
 .card {
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: var(--panel-soft-2);
+  background: linear-gradient(180deg, rgba(17, 22, 31, 0.62), rgba(12, 16, 23, 0.38));
   overflow: hidden;
   transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
 }
 .card:hover {
   transform: translateY(-2px);
   border-color: var(--line-strong);
-  background: var(--panel);
+  background: linear-gradient(180deg, rgba(22, 28, 40, 0.72), rgba(14, 19, 28, 0.46));
 }
 .card-media {
   display: block;
   aspect-ratio: 1 / 1;
-  background: var(--panel-soft-2);
+  background: rgba(10, 13, 18, 0.46);
 }
 .card-media img {
   width: 100%;
@@ -691,13 +741,13 @@ code {
   padding: 14px 14px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: var(--panel-soft-2);
+  background: linear-gradient(180deg, rgba(17, 22, 31, 0.62), rgba(12, 16, 23, 0.4));
   transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
 }
 .link-tile:hover {
   transform: translateY(-2px);
   border-color: var(--line-strong);
-  background: var(--panel);
+  background: linear-gradient(180deg, rgba(23, 29, 42, 0.72), rgba(14, 19, 28, 0.48));
 }
 .link-icon {
   width: 42px;
@@ -722,7 +772,7 @@ code {
 
 .site-footer {
   border-top: 1px solid var(--line);
-  background: rgba(6, 8, 12, 0.28);
+  background: rgba(8, 11, 16, 0.46);
   padding: 22px 0;
 }
 .footer-inner {
