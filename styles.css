@@ -70,7 +70,7 @@ body {
     "Apple Color Emoji", "Segoe UI Emoji";
   color: var(--text);
   background:
-    linear-gradient(180deg, #07090d 0%, #0a0d12 38%, #0c1017 100%);
+    linear-gradient(180deg, #1f0810 0%, #13091d 42%, #081722 100%);
 }
 
 a {
@@ -324,7 +324,7 @@ a {
   aspect-ratio: 1 / 1;
   border-radius: 28px;
   border: 1px solid var(--line);
-  background: var(--surface);
+  background: rgba(72, 18, 36, 0.52);
   backdrop-filter: blur(10px);
   box-shadow: var(--shadow);
   overflow: hidden;
@@ -465,7 +465,7 @@ a {
   padding: 16px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(18, 24, 34, 0.78), rgba(13, 17, 24, 0.62));
+  background: linear-gradient(180deg, rgba(72, 18, 36, 0.82), rgba(21, 44, 58, 0.64));
   backdrop-filter: blur(8px);
   box-shadow: var(--shadow);
 }
@@ -559,7 +559,7 @@ code {
   padding: 18px 18px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(17, 22, 31, 0.7), rgba(12, 16, 23, 0.42));
+  background: linear-gradient(180deg, rgba(68, 16, 34, 0.72), rgba(18, 44, 58, 0.46));
   backdrop-filter: blur(8px);
   box-shadow: 0 12px 34px rgba(0, 0, 0, 0.24);
   transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
@@ -567,11 +567,7 @@ code {
 .hub-tile:hover {
   transform: translateY(-2px);
   border-color: var(--line-strong);
-  background: linear-gradient(
-    180deg,
-    rgba(24, 31, 44, 0.8),
-    rgba(14, 19, 28, 0.54)
-  );
+  background: linear-gradient(180deg, rgba(90, 24, 45, 0.84), rgba(22, 57, 74, 0.56));
 }
 .hub-kicker {
   display: inline-flex;
@@ -627,14 +623,14 @@ code {
 .card {
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(17, 22, 31, 0.62), rgba(12, 16, 23, 0.38));
+  background: linear-gradient(180deg, rgba(61, 14, 30, 0.7), rgba(17, 39, 52, 0.42));
   overflow: hidden;
   transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
 }
 .card:hover {
   transform: translateY(-2px);
   border-color: var(--line-strong);
-  background: linear-gradient(180deg, rgba(22, 28, 40, 0.72), rgba(14, 19, 28, 0.46));
+  background: linear-gradient(180deg, rgba(82, 21, 41, 0.8), rgba(22, 53, 69, 0.5));
 }
 .card-media {
   display: block;
@@ -702,13 +698,13 @@ code {
   padding: 14px 14px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(17, 22, 31, 0.62), rgba(12, 16, 23, 0.4));
+  background: linear-gradient(180deg, rgba(61, 14, 30, 0.68), rgba(17, 39, 52, 0.44));
   transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
 }
 .link-tile:hover {
   transform: translateY(-2px);
   border-color: var(--line-strong);
-  background: linear-gradient(180deg, rgba(23, 29, 42, 0.72), rgba(14, 19, 28, 0.48));
+  background: linear-gradient(180deg, rgba(82, 21, 41, 0.78), rgba(22, 53, 69, 0.52));
 }
 .link-icon {
   width: 42px;
@@ -733,7 +729,7 @@ code {
 
 .site-footer {
   border-top: 1px solid var(--line);
-  background: rgba(8, 11, 16, 0.46);
+  background: rgba(34, 10, 22, 0.58);
   padding: 22px 0;
 }
 .footer-inner {
