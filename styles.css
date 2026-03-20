@@ -70,8 +70,27 @@ body {
     "Apple Color Emoji", "Segoe UI Emoji";
   color: var(--text);
   background:
-    url("assets/background-panel.svg") center top / 1600px 2200px repeat-y,
-    linear-gradient(180deg, var(--bg-deeper) 0%, var(--bg-deep) 42%, var(--bg-deepest) 100%);
+    radial-gradient(
+      48% 140% at 0% 50%,
+      rgba(58, 158, 112, 0.34) 0%,
+      rgba(36, 96, 72, 0.18) 36%,
+      rgba(10, 13, 18, 0) 72%
+    ),
+    radial-gradient(
+      48% 140% at 100% 50%,
+      rgba(72, 176, 126, 0.3) 0%,
+      rgba(39, 103, 78, 0.16) 34%,
+      rgba(10, 13, 18, 0) 72%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(9, 16, 14, 0.98) 0%,
+      rgba(8, 12, 14, 0.99) 28%,
+      rgba(7, 10, 12, 1) 50%,
+      rgba(8, 12, 14, 0.99) 72%,
+      rgba(9, 16, 14, 0.98) 100%
+    ),
+    linear-gradient(180deg, #06080c 0%, #0a0d12 42%, #0d1118 100%);
 }
 
 a {
