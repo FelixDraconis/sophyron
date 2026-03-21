@@ -176,6 +176,11 @@ function formatApproxMinutes(durationStr) {
   return `~${minutes} min`;
 }
 
+function getReleaseDetailUrl(release) {
+  if (!release?.id) return null;
+  return `release.html?id=${encodeURIComponent(release.id)}`;
+}
+
 function sortNewestFirst(a, b) {
   const da = new Date(a.releaseDate).getTime();
   const db = new Date(b.releaseDate).getTime();
@@ -183,6 +188,9 @@ function sortNewestFirst(a, b) {
 }
 
 function renderFeaturedRelease(release) {
+  const releaseDetailUrl = getReleaseDetailUrl(release);
+  const hasGallery = Array.isArray(release.gallery) && release.gallery.length > 0;
+
   return el("article", { class: "featured featured-release-shrine" }, [
     el("div", { class: "cover cover-shrine" }, [
       el("img", {
@@ -218,6 +226,9 @@ function renderFeaturedRelease(release) {
           target: "_blank",
           rel: "noreferrer",
         }, "Watch on YouTube"),
+        hasGallery && releaseDetailUrl
+          ? el("a", { class: "btn btn-ghost", href: releaseDetailUrl }, "View Gallery")
+          : null,
       ]),
     ]),
   ]);
@@ -227,11 +238,15 @@ function renderReleaseCard(release) {
   const year = formatYear(release.releaseDate);
   const length = formatApproxMinutes(release.duration);
   const subtitle = length ? `${year} • ${length}` : year;
+  const releaseDetailUrl = getReleaseDetailUrl(release);
+  const hasGallery = Array.isArray(release.gallery) && release.gallery.length > 0;
 
   return el("article", { class: "card" }, [
     el(
       "a",
-      { class: "card-media", href: release.bandcampUrl, target: "_blank", rel: "noreferrer" },
+      hasGallery && releaseDetailUrl
+        ? { class: "card-media", href: releaseDetailUrl }
+        : { class: "card-media", href: release.bandcampUrl, target: "_blank", rel: "noreferrer" },
       el("img", { src: release.coverImage, alt: `Cover art for ${release.title}`, loading: "lazy" })
     ),
     el("div", { class: "card-body" }, [
@@ -240,7 +255,159 @@ function renderReleaseCard(release) {
       el("div", { class: "card-actions" }, [
         el("a", { class: "chip", href: release.bandcampUrl, target: "_blank", rel: "noreferrer" }, "Bandcamp"),
         el("a", { class: "chip", href: release.youtubeUrl, target: "_blank", rel: "noreferrer" }, "YouTube"),
+        hasGallery && releaseDetailUrl
+          ? el("a", { class: "chip", href: releaseDetailUrl }, "Gallery")
+          : null,
       ]),
+    ]),
+  ]);
+}
+
+function renderReleaseGalleryImage(imagePath, index, title) {
+  return el("figure", { class: "gallery-item" }, [
+    el(
+      "button",
+      {
+        type: "button",
+        class: "gallery-button",
+        "data-gallery-image": imagePath,
+        "data-gallery-alt": `${title} gallery image ${index + 1}`,
+        "aria-label": `Expand ${title} gallery image ${index + 1}`,
+      },
+      el("img", {
+        src: imagePath,
+        alt: `${title} gallery image ${index + 1}`,
+        loading: "lazy",
+      })
+    ),
+  ]);
+}
+
+function ensureGalleryLightbox() {
+  let lightbox = document.getElementById("gallery-lightbox");
+  if (lightbox) return lightbox;
+
+  lightbox = el("div", { id: "gallery-lightbox", class: "gallery-lightbox", hidden: "hidden" }, [
+    el("div", { class: "gallery-lightbox-backdrop js-gallery-close" }),
+    el("div", { class: "gallery-lightbox-panel", role: "dialog", "aria-modal": "true" }, [
+      el(
+        "button",
+        {
+          type: "button",
+          class: "gallery-lightbox-close js-gallery-close",
+          "aria-label": "Close image viewer",
+        },
+        "Close"
+      ),
+      el("img", { class: "gallery-lightbox-image", alt: "" }),
+    ]),
+  ]);
+
+  document.body.append(lightbox);
+  return lightbox;
+}
+
+function closeGalleryLightbox() {
+  const lightbox = document.getElementById("gallery-lightbox");
+  if (!lightbox) return;
+  lightbox.hidden = true;
+  document.body.classList.remove("gallery-lightbox-open");
+}
+
+function openGalleryLightbox(imagePath, altText) {
+  const lightbox = ensureGalleryLightbox();
+  const image = lightbox.querySelector(".gallery-lightbox-image");
+  if (!image) return;
+
+  image.setAttribute("src", imagePath);
+  image.setAttribute("alt", altText || "");
+  lightbox.hidden = false;
+  document.body.classList.add("gallery-lightbox-open");
+}
+
+function mountGalleryLightbox() {
+  const lightbox = ensureGalleryLightbox();
+
+  lightbox.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    if (target.closest(".js-gallery-close")) {
+      closeGalleryLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeGalleryLightbox();
+  });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const button = target.closest(".gallery-button");
+    if (!(button instanceof HTMLElement)) return;
+
+    const imagePath = button.dataset.galleryImage;
+    const altText = button.dataset.galleryAlt;
+    if (!imagePath) return;
+
+    openGalleryLightbox(imagePath, altText || "");
+  });
+}
+
+function renderReleaseDetail(release) {
+  const gallery = Array.isArray(release.gallery) ? release.gallery : [];
+
+  return el("div", { class: "release-detail-shell" }, [
+    el("section", { class: "release-detail-hero" }, [
+      el("div", { class: "release-detail-cover" }, [
+        el("img", {
+          src: release.coverImage,
+          alt: `Cover art for ${release.title}`,
+        }),
+      ]),
+      el("div", { class: "release-detail-copy" }, [
+        el("div", { class: "kicker", text: "Release gallery" }),
+        el("h1", { class: "release-detail-title", text: release.title }),
+        el("p", { class: "release-detail-blurb muted", text: release.blurb || "" }),
+        el("div", { class: "meta-row release-detail-meta" }, [
+          el("div", { class: "meta" }, [
+            el("div", { class: "meta-label", text: "Release" }),
+            el("div", { class: "meta-value", text: formatMonthYear(release.releaseDate) }),
+          ]),
+          el("div", { class: "meta" }, [
+            el("div", { class: "meta-label", text: "Length" }),
+            el("div", { class: "meta-value", text: formatApproxMinutes(release.duration) }),
+          ]),
+          el("div", { class: "meta" }, [
+            el("div", { class: "meta-label", text: "Pages" }),
+            el("div", { class: "meta-value", text: String(gallery.length || 0) }),
+          ]),
+        ]),
+        el("div", { class: "cta-row" }, [
+          el("a", {
+            class: "btn btn-primary",
+            href: release.bandcampUrl,
+            target: "_blank",
+            rel: "noreferrer",
+          }, "Listen / Buy on Bandcamp"),
+          el("a", {
+            class: "btn btn-ghost",
+            href: release.youtubeUrl,
+            target: "_blank",
+            rel: "noreferrer",
+          }, "Watch on YouTube"),
+          el("a", { class: "btn btn-ghost", href: "soundtracks.html" }, "Back to Soundtracks"),
+        ]),
+      ]),
+    ]),
+    el("section", { class: "section release-gallery-section" }, [
+      gallery.length
+        ? el(
+            "div",
+            { class: "gallery-grid" },
+            gallery.map((imagePath, index) => renderReleaseGalleryImage(imagePath, index, release.title))
+          )
+        : el("div", { class: "muted" }, "No gallery images have been added for this release yet."),
     ]),
   ]);
 }
@@ -344,6 +511,7 @@ async function loadJson(path) {
 
 async function init() {
   mountBrandingDebugControl();
+  mountGalleryLightbox();
   applyMonthlyBranding();
 
   const yearEl = document.getElementById("year");
@@ -351,6 +519,7 @@ async function init() {
 
   const featuredReleaseMount = document.getElementById("featured-release-mount");
   const releaseCatalogMount = document.getElementById("release-catalog-mount");
+  const releaseDetailMount = document.getElementById("release-detail-mount");
   const featuredVideoMount = document.getElementById("featured-video-mount");
   const videoCatalogMount = document.getElementById("video-catalog-mount");
 
@@ -368,6 +537,29 @@ async function init() {
       );
       releaseCatalogMount.replaceChildren(
         el("div", { class: "muted" }, "Add releases to data/releases.json to populate the catalog.")
+      );
+    }
+  }
+
+  if (releaseDetailMount) {
+    try {
+      const releases = await loadJson("data/releases.json");
+      if (!Array.isArray(releases) || releases.length === 0) throw new Error("No releases found.");
+
+      const search = new URLSearchParams(window.location.search);
+      const releaseId = (search.get("id") || "").trim();
+      const release = releases.find((item) => item.id === releaseId);
+
+      if (!release) throw new Error(`Release not found: ${releaseId || "missing id"}`);
+
+      const pageTitle = document.getElementById("release-page-title");
+      if (pageTitle) pageTitle.textContent = `${release.title} — Gallery — Sophyron`;
+
+      releaseDetailMount.replaceChildren(renderReleaseDetail(release));
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      releaseDetailMount.replaceChildren(
+        el("div", { class: "muted" }, ["Could not load release gallery. ", el("span", { class: "mono" }, msg)])
       );
     }
   }
