@@ -1430,8 +1430,11 @@ code {
   .hero-inner {
     grid-template-columns: 1fr;
   }
-  .hero-art {
-    order: -1;
+  .hero-compact .hero-art {
+    display: none;
+  }
+  .brand-tagline {
+    display: none;
   }
   .featured {
     grid-template-columns: 1fr;
@@ -1464,7 +1467,7 @@ code {
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 430px) {
   .hero-category {
     grid-template-columns: 1fr;
   }
