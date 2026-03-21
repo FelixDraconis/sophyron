@@ -304,7 +304,7 @@ async function init() {
             ? "All videos"
             : selectedCategory === "music"
               ? "Music videos"
-              : "Story / Fantasy videos";
+              : "Story videos";
         titleEl.textContent = pretty;
       }
 
@@ -315,7 +315,7 @@ async function init() {
             ? "Latest video"
             : selectedCategory === "music"
               ? "Latest music video"
-              : "Latest story / fantasy video";
+              : "Latest story video";
         latestTitleEl.textContent = pretty;
       }
 
