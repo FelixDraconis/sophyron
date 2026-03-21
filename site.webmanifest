@@ -1,0 +1,15 @@
+{
+  "name": "Sophyron",
+  "short_name": "Sophyron",
+  "description": "A cozy audio-visual playground for soundtracks, videos, and small imagined worlds.",
+  "icons": [
+    {
+      "src": "assets/branding/favicon.png",
+      "sizes": "306x308",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0a0d16",
+  "background_color": "#0a0d16",
+  "display": "standalone"
+}
