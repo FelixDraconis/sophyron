@@ -727,12 +727,15 @@ a {
   display: grid;
   gap: 26px;
   justify-items: center;
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
 }
 
 .error-visual {
   display: grid;
   place-items: center;
-  width: min(100%, 1120px);
+  width: 100%;
 }
 
 .error-fox {
