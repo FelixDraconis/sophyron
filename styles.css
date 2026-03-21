@@ -1467,7 +1467,7 @@ code {
   }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 389px) {
   .hero-category {
     grid-template-columns: 1fr;
   }
