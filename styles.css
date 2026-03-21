@@ -802,19 +802,6 @@ a {
   width: 100%;
 }
 
-.error-audio-loop {
-  margin-top: 10px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.error-audio-loop input {
-  accent-color: rgb(var(--accent-2-rgb));
-}
-
 .error-copy .section-head h2 {
   font-size: clamp(32px, 5vw, 48px);
   color: var(--text-hero);
