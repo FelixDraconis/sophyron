@@ -1322,12 +1322,13 @@ code {
 .gallery-lightbox-close {
   justify-self: end;
   margin-bottom: 12px;
-  padding: 9px 12px;
+  padding: 7px 10px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(12, 16, 23, 0.72);
   color: rgba(245, 244, 238, 0.88);
   font: inherit;
+  font-size: 13px;
   cursor: pointer;
 }
 
@@ -1479,5 +1480,20 @@ code {
   }
   .meta-row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .gallery-lightbox-panel {
+    padding: 14px 14px 10px;
+  }
+  .gallery-lightbox-close {
+    margin-bottom: 8px;
+    padding: 6px 9px;
+    font-size: 12px;
+  }
+  .gallery-lightbox-image {
+    width: min(100vw - 28px, 1600px);
+    max-height: calc(100vh - 54px);
   }
 }
