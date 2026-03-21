@@ -30,6 +30,47 @@ const MONTH_NAMES = [
   "december",
 ];
 
+const BRANDING_OVERRIDE_KEY = "sophyron-branding-month-override";
+
+function getBrandingOverrideMonthIndex() {
+  try {
+    const raw = window.sessionStorage.getItem(BRANDING_OVERRIDE_KEY);
+    if (raw === null) return null;
+    const monthIndex = Number(raw);
+    if (!Number.isInteger(monthIndex) || monthIndex < 0 || monthIndex > 11) return null;
+    return monthIndex;
+  } catch {
+    return null;
+  }
+}
+
+function setBrandingOverrideMonthIndex(monthIndex) {
+  try {
+    window.sessionStorage.setItem(BRANDING_OVERRIDE_KEY, String(monthIndex));
+  } catch {
+    // ignore session storage failures
+  }
+}
+
+function clearBrandingOverrideMonthIndex() {
+  try {
+    window.sessionStorage.removeItem(BRANDING_OVERRIDE_KEY);
+  } catch {
+    // ignore session storage failures
+  }
+}
+
+function getBrandingPreviewDate(date = new Date()) {
+  const overrideMonthIndex = getBrandingOverrideMonthIndex();
+  if (overrideMonthIndex === null) return date;
+  return new Date(date.getFullYear(), overrideMonthIndex, 1);
+}
+
+function getMonthChipLabel(monthIndex) {
+  const month = MONTH_NAMES[monthIndex] || MONTH_NAMES[0];
+  return month.slice(0, 3).replace(/^./, (c) => c.toUpperCase());
+}
+
 function getMonthlyBranding(date = new Date()) {
   const monthIndex = date.getMonth();
   const month = MONTH_NAMES[monthIndex] || MONTH_NAMES[0];
@@ -43,7 +84,8 @@ function getMonthlyBranding(date = new Date()) {
 }
 
 function applyMonthlyBranding() {
-  const branding = getMonthlyBranding();
+  const previewDate = getBrandingPreviewDate();
+  const branding = getMonthlyBranding(previewDate);
 
   document.querySelectorAll(".js-brand-icon").forEach((img) => {
     img.setAttribute("src", branding.icon);
@@ -52,6 +94,55 @@ function applyMonthlyBranding() {
   document.querySelectorAll(".js-brand-hero").forEach((img) => {
     img.setAttribute("src", branding.hero);
   });
+
+  const control = document.querySelector(".js-branding-debug");
+  if (control) {
+    const overrideMonthIndex = getBrandingOverrideMonthIndex();
+    const activeMonthIndex = previewDate.getMonth();
+    const label = getMonthChipLabel(activeMonthIndex);
+    control.textContent = label;
+    control.dataset.active = overrideMonthIndex === null ? "false" : "true";
+    control.setAttribute(
+      "title",
+      overrideMonthIndex === null
+        ? `Branding preview: ${label}. Click for next month, Shift-click for previous, double-click to reset.`
+        : `Previewing ${label}. Click for next month, Shift-click for previous, double-click to reset.`
+    );
+  }
+}
+
+function cycleMonthlyBranding(step) {
+  const currentMonthIndex = getBrandingOverrideMonthIndex() ?? new Date().getMonth();
+  const nextMonthIndex = (currentMonthIndex + step + 12) % 12;
+  setBrandingOverrideMonthIndex(nextMonthIndex);
+  applyMonthlyBranding();
+}
+
+function mountBrandingDebugControl() {
+  if (document.querySelector(".js-branding-debug")) return;
+
+  const control = el(
+    "button",
+    {
+      type: "button",
+      class: "branding-debug js-branding-debug",
+      "aria-label": "Preview monthly branding",
+    },
+    "Now"
+  );
+
+  control.addEventListener("click", (event) => {
+    cycleMonthlyBranding(event.shiftKey ? -1 : 1);
+  });
+
+  control.addEventListener("dblclick", (event) => {
+    event.preventDefault();
+    clearBrandingOverrideMonthIndex();
+    applyMonthlyBranding();
+  });
+
+  document.body.append(control);
+  applyMonthlyBranding();
 }
 
 function formatMonthYear(isoDate) {
@@ -252,6 +343,7 @@ async function loadJson(path) {
 }
 
 async function init() {
+  mountBrandingDebugControl();
   applyMonthlyBranding();
 
   const yearEl = document.getElementById("year");
