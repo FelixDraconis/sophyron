@@ -354,16 +354,6 @@ function mountGalleryLightbox() {
   });
 }
 
-function mountLoopAudioControls() {
-  const audio = document.querySelector(".js-loop-audio");
-  const toggle = document.querySelector(".js-loop-toggle");
-  if (!(audio instanceof HTMLAudioElement) || !(toggle instanceof HTMLInputElement)) return;
-
-  toggle.checked = audio.loop;
-  toggle.addEventListener("change", () => {
-    audio.loop = toggle.checked;
-  });
-}
 
 function renderReleaseDetail(release) {
   const gallery = Array.isArray(release.gallery) ? release.gallery : [];
@@ -523,7 +513,6 @@ async function loadJson(path) {
 async function init() {
   mountBrandingDebugControl();
   mountGalleryLightbox();
-  mountLoopAudioControls();
   applyMonthlyBranding();
 
   const yearEl = document.getElementById("year");
