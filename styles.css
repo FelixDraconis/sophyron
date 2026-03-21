@@ -783,6 +783,84 @@ a {
   box-shadow: var(--shadow);
 }
 
+.featured-release-shrine {
+  grid-template-columns: minmax(260px, 0.88fr) minmax(0, 1.12fr);
+  gap: 22px;
+  padding: 20px;
+  border-radius: 24px;
+  border-color: rgba(222, 205, 156, 0.18);
+  background:
+    radial-gradient(360px 220px at 14% 18%, rgba(var(--accent-warm-rgb), 0.08), transparent 58%),
+    radial-gradient(360px 260px at 82% 82%, rgba(var(--accent-rgb), 0.1), transparent 60%),
+    linear-gradient(180deg, rgba(20, 24, 32, 0.9), rgba(12, 16, 23, 0.72));
+  box-shadow:
+    0 0 0 1px rgba(255, 244, 214, 0.03),
+    0 22px 68px rgba(0, 0, 0, 0.42);
+}
+
+.featured-release-shrine .featured-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.cover-shrine {
+  position: relative;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 245, 226, 0.12);
+  background:
+    radial-gradient(circle at 50% 14%, rgba(var(--accent-warm-rgb), 0.08), transparent 42%),
+    rgba(10, 13, 18, 0.52);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 18px 42px rgba(0, 0, 0, 0.28);
+}
+
+.cover-shrine::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cover-shrine img {
+  aspect-ratio: 1 / 1;
+}
+
+.featured-release-shrine .kicker {
+  color: rgba(228, 212, 166, 0.78);
+}
+
+.featured-release-shrine .featured-title {
+  font-size: clamp(30px, 4vw, 42px);
+  line-height: 1.02;
+  margin-top: 12px;
+}
+
+.featured-release-shrine .featured-blurb {
+  max-width: 42ch;
+  font-size: 15px;
+}
+
+.meta-row-shrine {
+  grid-template-columns: repeat(2, minmax(0, 180px));
+  gap: 12px;
+}
+
+.featured-release-shrine .meta {
+  padding: 12px 12px;
+  border-color: rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(245, 248, 255, 0.04), rgba(245, 248, 255, 0.02));
+}
+
+.featured-release-shrine .cta-row {
+  margin-top: 2px;
+}
+
 .cover {
   border-radius: 16px;
   border: 1px solid var(--panel-strong);

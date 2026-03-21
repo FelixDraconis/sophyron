@@ -183,8 +183,8 @@ function sortNewestFirst(a, b) {
 }
 
 function renderFeaturedRelease(release) {
-  return el("article", { class: "featured" }, [
-    el("div", { class: "cover" }, [
+  return el("article", { class: "featured featured-release-shrine" }, [
+    el("div", { class: "cover cover-shrine" }, [
       el("img", {
         src: release.coverImage,
         alt: `Cover art for ${release.title}`,
@@ -192,10 +192,10 @@ function renderFeaturedRelease(release) {
       }),
     ]),
     el("div", { class: "featured-body" }, [
-      el("div", { class: "kicker", text: "New release" }),
+      el("div", { class: "kicker", text: "Current soundtrack" }),
       el("h3", { class: "featured-title", text: release.title }),
       el("p", { class: "featured-blurb", text: release.blurb || "" }),
-      el("div", { class: "meta-row" }, [
+      el("div", { class: "meta-row meta-row-shrine" }, [
         el("div", { class: "meta" }, [
           el("div", { class: "meta-label", text: "Release" }),
           el("div", { class: "meta-value", text: formatMonthYear(release.releaseDate) }),
@@ -283,8 +283,8 @@ function getVideoThumbnail(video) {
 }
 
 function renderFeaturedVideo(video) {
-  return el("article", { class: "featured" }, [
-    el("div", { class: "cover" }, [
+  return el("article", { class: "featured featured-release-shrine" }, [
+    el("div", { class: "cover cover-shrine" }, [
       el("img", {
         src: getVideoThumbnail(video),
         alt: `Thumbnail for ${video.title}`,
@@ -292,10 +292,10 @@ function renderFeaturedVideo(video) {
       }),
     ]),
     el("div", { class: "featured-body" }, [
-      el("div", { class: "kicker", text: "New video" }),
+      el("div", { class: "kicker", text: "Current video" }),
       el("h3", { class: "featured-title", text: video.title }),
       el("p", { class: "featured-blurb", text: video.blurb || "" }),
-      el("div", { class: "meta-row" }, [
+      el("div", { class: "meta-row meta-row-shrine" }, [
         el("div", { class: "meta" }, [
           el("div", { class: "meta-label", text: "Published" }),
           el("div", { class: "meta-value", text: formatMonthYear(video.publishDate) }),
