@@ -193,7 +193,7 @@ a {
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   min-width: 240px;
 }
 .brand[href] {
@@ -201,20 +201,13 @@ a {
 }
 
 .brand-mark {
-  width: 40px;
-  height: 40px;
+  width: 54px;
+  height: 54px;
   display: grid;
   place-items: center;
-  border-radius: 12px;
   position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 28% 28%, var(--accent-glow-strong), transparent 48%),
-    radial-gradient(circle at 76% 78%, var(--accent-2-glow-strong), transparent 40%),
-    linear-gradient(180deg, var(--panel-2), var(--panel-soft-2));
-  border: 1px solid var(--line);
-  box-shadow: inset 0 1px 0 var(--panel);
-  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  flex: 0 0 auto;
+  transition: transform 180ms ease, filter 180ms ease;
 }
 
 .brand-name {
@@ -228,7 +221,8 @@ a {
   height: 100%;
   display: block;
   object-fit: contain;
-  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.16));
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), filter 180ms ease;
 }
 
 .brand-tagline {
@@ -241,16 +235,15 @@ a {
 .brand[href]:hover .brand-mark,
 .brand[href]:focus-visible .brand-mark {
   transform: translateY(-1px) rotate(-4deg);
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow:
-    inset 0 1px 0 var(--panel),
-    0 0 16px rgba(var(--accent-rgb), 0.14),
-    0 0 24px rgba(var(--accent-2-rgb), 0.1);
+  filter: drop-shadow(0 0 12px rgba(var(--accent-rgb), 0.16));
 }
 
 .brand[href]:hover .brand-icon-image,
 .brand[href]:focus-visible .brand-icon-image {
   transform: scale(1.08) rotate(4deg);
+  filter:
+    drop-shadow(0 10px 18px rgba(0, 0, 0, 0.18))
+    drop-shadow(0 0 10px rgba(var(--accent-rgb), 0.12));
 }
 
 .brand[href]:hover .brand-name,
