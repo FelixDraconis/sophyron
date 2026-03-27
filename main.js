@@ -176,6 +176,31 @@ function formatApproxMinutes(durationStr) {
   return `~${minutes} min`;
 }
 
+function isFutureDate(isoDate) {
+  if (!isoDate) return false;
+  const d = new Date(isoDate);
+  if (Number.isNaN(d.getTime())) return false;
+  return d.getTime() > Date.now();
+}
+
+function getReleaseVisibility(release) {
+  const status = (release?.status || "live").toLowerCase();
+  const futureDated = isFutureDate(release?.releaseDate);
+
+  if (status === "hidden") return "hidden";
+  if (status === "teaser" || status === "coming-soon") return "teaser";
+  if (futureDated && Array.isArray(release?.teaserImages) && release.teaserImages.length > 0) return "teaser";
+  if (futureDated && release?.teaserText) return "teaser";
+  return "live";
+}
+
+function getTeaserPreviewImage(release) {
+  if (Array.isArray(release?.teaserImages) && release.teaserImages.length > 0) {
+    return release.teaserImages[0];
+  }
+  return release?.coverImage || "assets/og-image.svg";
+}
+
 function getReleaseDetailUrl(release) {
   if (!release?.id) return null;
   return `release.html?id=${encodeURIComponent(release.id)}`;
@@ -235,6 +260,9 @@ function renderFeaturedRelease(release) {
 }
 
 function renderReleaseCard(release) {
+  const visibility = getReleaseVisibility(release);
+  if (visibility === "teaser") return renderReleaseTeaserCard(release);
+
   const year = formatYear(release.releaseDate);
   const length = formatApproxMinutes(release.duration);
   const subtitle = length ? `${year} • ${length}` : year;
@@ -259,6 +287,28 @@ function renderReleaseCard(release) {
           ? el("a", { class: "chip", href: releaseDetailUrl }, "Gallery")
           : null,
       ]),
+    ]),
+  ]);
+}
+
+function renderReleaseTeaserCard(release) {
+  const teaserImage = getTeaserPreviewImage(release);
+  const teaserCount = Array.isArray(release.teaserImages) ? release.teaserImages.length : 0;
+  const releaseLabel = release.releaseDate ? `Arriving ${formatMonthYear(release.releaseDate)}` : "Coming soon";
+
+  return el("article", { class: "card card-teaser" }, [
+    el("div", { class: "card-media card-media-teaser" }, [
+      el("img", { src: teaserImage, alt: release.teaserAlt || "Upcoming release teaser artwork", loading: "lazy" }),
+      teaserCount > 1
+        ? el("div", { class: "teaser-count", text: `${teaserCount} glimpses` })
+        : null,
+    ]),
+    el("div", { class: "card-body" }, [
+      el("div", { class: "hub-kicker", text: releaseLabel }),
+      el(
+        "div",
+        { class: "card-sub teaser-copy muted", text: release.teaserText || "Something new is taking shape." }
+      ),
     ]),
   ]);
 }
@@ -529,8 +579,19 @@ async function init() {
       const releases = await loadJson("data/releases.json");
       if (!Array.isArray(releases) || releases.length === 0) throw new Error("No releases found.");
       releases.sort(sortNewestFirst);
-      featuredReleaseMount.replaceChildren(renderFeaturedRelease(releases[0]));
-      releaseCatalogMount.replaceChildren(...releases.map(renderReleaseCard));
+
+      const visibleReleases = releases.filter((release) => getReleaseVisibility(release) !== "hidden");
+      const liveReleases = visibleReleases.filter((release) => getReleaseVisibility(release) === "live");
+
+      if (liveReleases.length > 0) {
+        featuredReleaseMount.replaceChildren(renderFeaturedRelease(liveReleases[0]));
+      } else {
+        featuredReleaseMount.replaceChildren(
+          el("div", { class: "muted" }, "No live soundtrack releases yet. Check back soon.")
+        );
+      }
+
+      releaseCatalogMount.replaceChildren(...visibleReleases.map(renderReleaseCard));
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       featuredReleaseMount.replaceChildren(

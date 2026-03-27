@@ -1152,6 +1152,43 @@ code {
 .card-body {
   padding: 12px 12px 14px;
 }
+.card-teaser {
+  border-style: dashed;
+  background:
+    radial-gradient(220px 160px at 20% 20%, rgba(var(--accent-rgb), 0.08), transparent 60%),
+    radial-gradient(220px 180px at 80% 80%, rgba(var(--accent-2-rgb), 0.08), transparent 60%),
+    linear-gradient(180deg, rgba(17, 22, 31, 0.5), rgba(12, 16, 23, 0.34));
+}
+.card-media-teaser {
+  position: relative;
+}
+.card-media-teaser::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(6, 8, 12, 0.06), rgba(6, 8, 12, 0.26)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 34%);
+  pointer-events: none;
+}
+.teaser-count {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 1;
+  padding: 6px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 13, 18, 0.68);
+  color: rgba(245, 244, 238, 0.8);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+.teaser-copy {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+}
 .card-title {
   font-weight: 800;
   color: rgba(239, 237, 231, 0.92);
